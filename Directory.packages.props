@@ -1,0 +1,55 @@
+<Project>
+    <PropertyGroup>
+        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+        <AspireVersion>9.5.1</AspireVersion>
+        <OrleansVersion>9.2.1</OrleansVersion>
+        <MsftExtVersion>9.0.10</MsftExtVersion>
+        <ShinyVersion>4.0.0-beta-0093</ShinyVersion>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageVersion Include="Aspire.StackExchange.Redis" Version="$(AspireVersion)"/>
+        <PackageVersion Include="Aspire.Hosting.Orleans" Version="$(AspireVersion)"/>
+        <PackageVersion Include="Aspire.Hosting.Redis" Version="$(AspireVersion)"/>
+        <PackageVersion Include="Aspire.Hosting.AppHost" Version="$(AspireVersion)"/>
+        <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="$(AspireVersion)"/>
+        <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="$(AspireVersion)"/>
+        <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.13.1"/>
+        <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.13.1"/>
+        <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.12.0"/>
+        <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.12.0"/>
+        <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.12.0"/>
+        <PackageVersion Include="CommunityToolkit.Aspire.Hosting.Ngrok" Version="9.7.2"/>
+    </ItemGroup>
+    <ItemGroup>
+        <PackageVersion Include="OrleansDashboard" Version="8.2.0"/>
+        <PackageVersion Include="Microsoft.Orleans.Server" Version="$(OrleansVersion)"/>
+        <PackageVersion Include="Microsoft.Orleans.Sdk" Version="$(OrleansVersion)"/>
+        <PackageVersion Include="Microsoft.Orleans.Runtime" Version="$(OrleansVersion)" />
+        <PackageVersion Include="Microsoft.Orleans.Client" Version="$(OrleansVersion)"/>
+        <PackageVersion Include="Microsoft.Orleans.Clustering.Redis" Version="$(OrleansVersion)"/>
+        <PackageVersion Include="Microsoft.Orleans.Persistence.Redis" Version="$(OrleansVersion)"/>
+        <PackageVersion Include="Microsoft.Orleans.GrainDirectory.Redis" Version="$(OrleansVersion)"/>
+    </ItemGroup>
+    <ItemGroup>
+        <PackageVersion Include="Microsoft.Extensions.Hosting" Version="$(MsftExtVersion)"/>
+        <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4"/>
+        <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="$(MsftExtVersion)"/>
+        <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="$(MsftExtVersion)"/>
+    </ItemGroup>
+    
+    <ItemGroup>
+        <PackageVersion Include="Shiny.Hosting.Maui" Version="$(ShinyVersion)"/>
+        <PackageVersion Include="Shiny.Reflector" Version="1.7.0"/>
+        <PackageVersion Include="Shiny.Extensions.DependencyInjection" Version="1.3.1"/>
+        <PackageVersion Include="Shiny.Extensions.Stores" Version="1.3.1"/>
+
+        <PackageVersion Include="Microsoft.Maui.Controls" Version="$(MauiVersion)"/>
+        <PackageVersion Include="Microsoft.Maui.Controls.Maps" Version="$(MauiVersion)"/>
+        <PackageVersion Include="Microsoft.Extensions.Logging.Debug" Version="9.0.9"/>
+        <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.0"/>
+        <PackageVersion Include="CommunityToolkit.Maui" Version="12.1.0"/>
+        <PackageVersion Include="Shiny.Maui.Shell" Version="1.1.1"/>
+        <PackageVersion Include="Shiny.Locations" Version="$(ShinyVersion)"/>
+        <PackageVersion Include="Shiny.Notifications" Version="$(ShinyVersion)"/>
+    </ItemGroup>
+</Project>

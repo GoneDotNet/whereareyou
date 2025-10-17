@@ -1,0 +1,15 @@
+﻿global using GoneDotNet.WhereAreYou.Maui.Services;
+global using Shiny;
+global using Shiny.Extensions.DependencyInjection;
+global using System;
+global using System.Windows.Input;
+global using System.Collections.ObjectModel;
+global using System.Collections.Generic;
+global using System.Reactive;
+global using System.Reactive.Linq;
+global using System.Reactive.Threading.Tasks;
+global using Microsoft.Extensions.Logging;
+global using Microsoft.Extensions.Configuration;
+global using CommunityToolkit.Maui;
+global using CommunityToolkit.Mvvm.ComponentModel;
+global using CommunityToolkit.Mvvm.Input;

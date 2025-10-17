@@ -1,0 +1,12 @@
+﻿<Solution>
+  <Folder Name="/Solution/">
+    <File Path="Directory.build.props" />
+    <File Path="Directory.packages.props" />
+    <File Path="readme.md" />
+    <File Path="GoneDotNet.WhereAreYou.AppHost\appsettings.json" />
+  </Folder>
+  <Project Path="GoneDotNet.WhereAreYou.Api\GoneDotNet.WhereAreYou.Api.csproj" Type="Classic C#" />
+  <Project Path="GoneDotNet.WhereAreYou.AppHost\GoneDotNet.WhereAreYou.AppHost.csproj" Type="Classic C#" />
+  <Project Path="GoneDotNet.WhereAreYou.Maui\GoneDotNet.WhereAreYou.Maui.csproj" Type="Classic C#" />
+  <Project Path="GoneDotNet.WhereAreYou.ServiceDefaults\GoneDotNet.WhereAreYou.ServiceDefaults.csproj" Type="Classic C#" />
+</Solution>
