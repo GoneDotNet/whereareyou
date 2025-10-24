@@ -1,6 +1,6 @@
 <Project>
     <PropertyGroup>
         <BaseTargetFramework>net9.0</BaseTargetFramework>
-        <MauiVersion>9.0.111</MauiVersion>
+        <MauiVersion>9.0.120</MauiVersion>
     </PropertyGroup>
 </Project>
