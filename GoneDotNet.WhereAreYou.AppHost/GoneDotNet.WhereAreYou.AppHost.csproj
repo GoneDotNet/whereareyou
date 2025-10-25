@@ -12,12 +12,14 @@
 
     <ItemGroup>
         <PackageReference Include="Aspire.Hosting.AppHost"/>
-        <PackageReference Include="Aspire.Hosting.PostgreSQL" />
+        <PackageReference Include="Aspire.Hosting.PostgreSQL"/>
+        <PackageReference Include="Aspire.Hosting.Orleans"/>
+        <PackageReference Include="Aspire.Hosting.Redis"/>
         <PackageReference Include="CommunityToolkit.Aspire.Hosting.Ngrok"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\GoneDotNet.WhereAreYou.Api\GoneDotNet.WhereAreYou.Api.csproj" />
+        <ProjectReference Include="..\GoneDotNet.WhereAreYou.Api\GoneDotNet.WhereAreYou.Api.csproj"/>
     </ItemGroup>
 
 </Project>

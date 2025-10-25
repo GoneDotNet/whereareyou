@@ -82,5 +82,4 @@
         <PackageReference Include="Shiny.Locations"/>
         <PackageReference Include="Shiny.Notifications"/>
     </ItemGroup>
-
 </Project>

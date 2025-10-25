@@ -1,5 +1,4 @@
-﻿global using GoneDotNet.WhereAreYou.Maui.Services;
-global using Shiny;
+﻿global using Shiny;
 global using Shiny.Extensions.DependencyInjection;
 global using System;
 global using System.Windows.Input;

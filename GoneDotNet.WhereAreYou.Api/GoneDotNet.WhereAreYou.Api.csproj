@@ -7,6 +7,16 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="OrleansDashboard"/>
+        <PackageReference Include="Aspire.StackExchange.Redis"/>
+        <PackageReference Include="Microsoft.Orleans.Clustering.Redis"/>
+        <PackageReference Include="Microsoft.Orleans.Persistence.Redis"/>
+        <PackageReference Include="Microsoft.Orleans.GrainDirectory.Redis"/>
+        <PackageReference Include="Microsoft.Orleans.Server"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\GoneDotNet.WhereAreYou.Grains.Impl\GoneDotNet.WhereAreYou.Grains.Impl.csproj" />
         <ProjectReference Include="..\GoneDotNet.WhereAreYou.ServiceDefaults\GoneDotNet.WhereAreYou.ServiceDefaults.csproj"/>
     </ItemGroup>
 
