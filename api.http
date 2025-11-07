@@ -1,0 +1,18 @@
+@baseUri = http://localhost:5214/
+
+### Driver Write Location
+POST {{baseUri}}/gps
+Accept: application/json
+Content-Type: application/json
+
+{
+  "driverName": "Allan Test",
+  "latitude": 90,
+  "longitude": -80,
+  "timestamp": "2025-11-08T12:00:00Z"
+}
+
+### Driver Read Location
+GET {{baseUri}}/drivers
+Accept: application/json
+Content-Type: application/json

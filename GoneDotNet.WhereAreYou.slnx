@@ -4,6 +4,7 @@
     <File Path="Directory.packages.props" />
     <File Path="readme.md" />
     <File Path="GoneDotNet.WhereAreYou.AppHost\appsettings.json" />
+    <File Path="api.http" />
   </Folder>
   <Project Path="GoneDotNet.WhereAreYou.Api\GoneDotNet.WhereAreYou.Api.csproj" Type="Classic C#" />
   <Project Path="GoneDotNet.WhereAreYou.AppHost\GoneDotNet.WhereAreYou.AppHost.csproj" Type="Classic C#" />
