@@ -1,21 +1,27 @@
-﻿using Shiny.Locations;
+﻿using GoneDotNet.WhereAreYou.Maui.Delegates;
+using Shiny.Locations;
 
 namespace GoneDotNet.WhereAreYou.Maui;
 
 
 [ShellMap<MainPage>]
-public partial class MainViewModel(IGpsManager gpsManager) : ObservableObject
+public partial class MainViewModel(
+    IGpsManager gpsManager,
+    MyGpsDelegate gpsDelegate,
+    INavigator navigator
+) : ObservableObject
 {
     [ObservableProperty] public partial string DriverName { get; set; }
     public bool IsWorking => gpsManager.CurrentListener != null;
 
-    [RelayCommand(CanExecute = nameof(CanChangeStatus))]
+    [RelayCommand]
     async Task ChangeStatus()
     {
         try
         {
             if (gpsManager.CurrentListener == null)
             {
+                gpsDelegate.DriverName = this.DriverName;
                 await gpsManager.StartListener(GpsRequest.Realtime(true));
             }
             else
@@ -26,12 +32,11 @@ public partial class MainViewModel(IGpsManager gpsManager) : ObservableObject
         }
         catch (Exception ex)
         {
-            // services.Logger.LogError(ex, "Error changing GPS status");
-            // await services.Dialogs.Alert(
-            //     "An error occurred while changing GPS status. Please try again.",
-            //     "Error",
-            //     "OK"
-            // );
+            await navigator.Alert(
+                "An error occurred while changing GPS status. Please try again.",
+                "Error",
+                "OK"
+            );
         }
     }
     

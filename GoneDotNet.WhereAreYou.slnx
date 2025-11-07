@@ -10,5 +10,6 @@
   <Project Path="GoneDotNet.WhereAreYou.Grains.Impl\GoneDotNet.WhereAreYou.Grains.Impl.csproj" Type="Classic C#" />
   <Project Path="GoneDotNet.WhereAreYou.Grains.Interfaces\GoneDotNet.WhereAreYou.Grains.Interfaces.csproj" Type="Classic C#" />
   <Project Path="GoneDotNet.WhereAreYou.Maui\GoneDotNet.WhereAreYou.Maui.csproj" Type="Classic C#" />
+  <Project Path="GoneDotNet.WhereAreYou.OrleansServer\GoneDotNet.WhereAreYou.OrleansServer.csproj" Type="Classic C#" />
   <Project Path="GoneDotNet.WhereAreYou.ServiceDefaults\GoneDotNet.WhereAreYou.ServiceDefaults.csproj" Type="Classic C#" />
 </Solution>

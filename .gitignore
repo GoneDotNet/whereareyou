@@ -400,3 +400,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+GoneDotNet.WhereAreYou.AppHost/.ngrok/ngrok.yml

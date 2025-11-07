@@ -11,15 +11,18 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Aspire.Azure.Data.Tables" />
+        <PackageReference Include="Aspire.Azure.Storage.Blobs" />
         <PackageReference Include="Aspire.Hosting.AppHost"/>
+        <PackageReference Include="Aspire.Hosting.Azure.Storage" />
         <PackageReference Include="Aspire.Hosting.PostgreSQL"/>
         <PackageReference Include="Aspire.Hosting.Orleans"/>
-        <PackageReference Include="Aspire.Hosting.Redis"/>
         <PackageReference Include="CommunityToolkit.Aspire.Hosting.Ngrok"/>
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\GoneDotNet.WhereAreYou.Api\GoneDotNet.WhereAreYou.Api.csproj"/>
+        <ProjectReference Include="..\GoneDotNet.WhereAreYou.OrleansServer\GoneDotNet.WhereAreYou.OrleansServer.csproj" />
     </ItemGroup>
 
 </Project>

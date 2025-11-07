@@ -4,7 +4,7 @@ namespace GoneDotNet.WhereAreYou.Grains.Impl;
 
 
 public class DriverGrain(
-    [PersistentState("driver", "driverStore")] 
+    [PersistentState("driver")] 
     IPersistentState<DriverState> state
 ) : Grain, IDriverGrain
 {

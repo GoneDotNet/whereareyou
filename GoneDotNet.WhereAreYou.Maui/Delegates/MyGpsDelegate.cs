@@ -6,6 +6,8 @@ namespace GoneDotNet.WhereAreYou.Maui.Delegates;
 
 public partial class MyGpsDelegate : GpsDelegate
 {
+    public string DriverName { get; set; }
+    
     private readonly HttpClient httpClient = new();
     public MyGpsDelegate(ILogger<MyGpsDelegate> logger) : base(logger)
     {
@@ -17,11 +19,10 @@ public partial class MyGpsDelegate : GpsDelegate
 
     protected override async Task OnGpsReading(GpsReading reading)
     {
-        // TODO: send GPS to api
         await this.httpClient.PostAsJsonAsync(
             $"{Constants.ApiBaseUrl}/gps",
             new GpsPing(
-                "",
+                this.DriverName,
                 reading.Position.Latitude, 
                 reading.Position.Longitude,
                 reading.Timestamp

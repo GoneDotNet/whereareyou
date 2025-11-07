@@ -13,10 +13,7 @@ public static class MauiProgram
             .UseMauiApp<App>()
             .UseShiny()
             .UseMauiCommunityToolkit()
-            .UseShinyShell(x =>
-            {
-                // map routes here
-            })
+            .UseShinyShell(x => x.AddGeneratedMaps())
             .UseMauiMaps()
             .ConfigureFonts(fonts =>
             {

@@ -43,6 +43,26 @@ public static class Extensions
     }
 
 
+    public static TBuilder AddOrleansRequirements<TBuilder>(this TBuilder builder) where TBuilder : IHostApplicationBuilder
+    {
+        builder.AddKeyedAzureTableClient("clustering");
+        builder.AddKeyedAzureTableClient("reminders");
+        builder.AddKeyedAzureBlobClient("grain-state");
+        builder.AddKeyedAzureQueueClient("streaming");
+        builder.AddKeyedAzureBlobClient("pubsub-storage");
+        return builder;
+    }
+    
+
+    public static TBuilder AddOrleansClient<TBuilder>(this TBuilder builder) where TBuilder : IHostApplicationBuilder
+    {
+        builder.AddOrleansRequirements();
+        builder.UseOrleansClient();
+        
+        return builder;
+    }
+
+
     public static TBuilder ConfigureOpenTelemetry<TBuilder>(this TBuilder builder)
         where TBuilder : IHostApplicationBuilder
     {

@@ -14,30 +14,45 @@ var postgres = builder
 
 var database = postgres.AddDatabase("gonedotnetdb");
 
-var redis = builder
-    .AddRedis("redis")
-    .WithDataVolume(Volume);
+var storage = builder.AddAzureStorage("storage").RunAsEmulator();
+var clustering = storage.AddTables("clustering");
+var streaming = storage.AddQueues("streaming");
+var grainStore = storage.AddBlobs("grain-state");
+var reminders = storage.AddTables("reminders");
+var pubSubStore = storage.AddBlobs("pubsub-storage");
 
 var orleans = builder
     .AddOrleans("gdn-orleans")
     .WithClusterId("gdn-cluster")
     .WithServiceId("dgn-service")
-    // .WithStreaming()
-    // .WithBroadcastChannel()
-    .WithClustering(redis)
-    .WithGrainStorage("Default", redis);
+    .WithClustering(clustering)
+    .WithReminders(reminders)
+    .WithStreaming("StreamProvider", streaming)
+    .WithGrainStorage("PubSubStore", pubSubStore)
+    .WithGrainStorage("Default", grainStore);
+
+var silo = builder.AddProject<GoneDotNet_WhereAreYou_OrleansServer>("silo")
+    .WithReference(orleans)
+    .WithReference(clustering)
+    .WaitFor(clustering)
+    .WithReference(reminders)
+    .WaitFor(reminders)
+    .WithReference(streaming)
+    .WaitFor(streaming)
+    .WithReference(grainStore)
+    .WaitFor(grainStore)
+    .WithReference(pubSubStore)
+    .WaitFor(pubSubStore);
 
 var webapi = builder
     .AddProject<GoneDotNet_WhereAreYou_Api>("webapi")
     .WithExternalHttpEndpoints()
     .WithReference(database)
-    .WithReference(orleans)
-    .WaitFor(database);
+    .WithReference(orleans.AsClient())
+    .WaitFor(silo);
 
 if (builder.Environment.IsDevelopment())
 {
-    redis.WithRedisCommander();
-    
     builder
         .AddNgrok("ngrok")
         .WithAuthToken(builder.Configuration["NGrok:AuthToken"]!)

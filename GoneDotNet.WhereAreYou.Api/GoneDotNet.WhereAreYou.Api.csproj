@@ -7,12 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="OrleansDashboard"/>
-        <PackageReference Include="Aspire.StackExchange.Redis"/>
-        <PackageReference Include="Microsoft.Orleans.Clustering.Redis"/>
-        <PackageReference Include="Microsoft.Orleans.Persistence.Redis"/>
-        <PackageReference Include="Microsoft.Orleans.GrainDirectory.Redis"/>
-        <PackageReference Include="Microsoft.Orleans.Server"/>
+
     </ItemGroup>
 
     <ItemGroup>
