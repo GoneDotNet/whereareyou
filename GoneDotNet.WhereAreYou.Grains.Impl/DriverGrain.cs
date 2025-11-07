@@ -1,4 +1,6 @@
 ﻿using GoneDotNet.WhereAreYou.Grains.Interfaces;
+using Orleans.Runtime;
+using Orleans.Streams;
 
 namespace GoneDotNet.WhereAreYou.Grains.Impl;
 
@@ -8,10 +10,26 @@ public class DriverGrain(
     IPersistentState<DriverState> state
 ) : Grain, IDriverGrain
 {
-    public Task UpdateLocation(Location location)
+    private IAsyncStream<Location>? stream;
+
+    public override Task OnActivateAsync(CancellationToken cancellationToken)
+    {
+        var streamProvider = this.GetStreamProvider("StreamProvider");
+        stream = streamProvider.GetStream<Location>(StreamId.Create("drivers", "all"));
+        return base.OnActivateAsync(cancellationToken);
+    }
+
+    
+    public async Task UpdateLocation(Location location)
     {
         state.State.LastKnownLocation = location;
-        return state.WriteStateAsync();
+        await state.WriteStateAsync();
+        
+        if (stream != null)
+        {
+            location.DriverName = this.GetPrimaryKeyString();
+            await stream.OnNextAsync(location);
+        }
     }
     
 

@@ -27,4 +27,7 @@ public class Location
     
     [Id(2)]
     public DateTimeOffset Timestamp { get; set; }
+    
+    [Id(3)]
+    public string? DriverName { get; set; }
 }

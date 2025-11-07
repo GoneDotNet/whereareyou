@@ -40,9 +40,9 @@ async IAsyncEnumerable<GpsPing> StreamDriverUpdates(IClusterClient client)
 {
     var streamProvider = client.GetStreamProvider("StreamProvider");
     var streamId = StreamId.Create("drivers", "all");
-    var stream = streamProvider.GetStream<GpsPing>(streamId);
+    var stream = streamProvider.GetStream<Location>(streamId);
 
-    var channel = System.Threading.Channels.Channel.CreateUnbounded<GpsPing>();
+    var channel = System.Threading.Channels.Channel.CreateUnbounded<Location>();
     
     var observer = new GpsPingObserver(channel.Writer);
     var sub = await stream.SubscribeAsync(observer);
@@ -51,7 +51,7 @@ async IAsyncEnumerable<GpsPing> StreamDriverUpdates(IClusterClient client)
     {
         await foreach (var ping in channel.Reader.ReadAllAsync())
         {
-            yield return ping;
+            yield return new GpsPing(ping.DriverName!, ping.Latitude, ping.Longitude, ping.Timestamp);
         }
     }
     finally
@@ -61,16 +61,16 @@ async IAsyncEnumerable<GpsPing> StreamDriverUpdates(IClusterClient client)
     }
 }
 
-class GpsPingObserver : IAsyncObserver<GpsPing>
+class GpsPingObserver : IAsyncObserver<Location>
 {
-    private readonly System.Threading.Channels.ChannelWriter<GpsPing> _writer;
+    private readonly System.Threading.Channels.ChannelWriter<Location> _writer;
 
-    public GpsPingObserver(System.Threading.Channels.ChannelWriter<GpsPing> writer)
+    public GpsPingObserver(System.Threading.Channels.ChannelWriter<Location> writer)
     {
         _writer = writer;
     }
 
-    public Task OnNextAsync(GpsPing item, StreamSequenceToken? token = null)
+    public Task OnNextAsync(Location item, StreamSequenceToken? token = null)
     {
         return _writer.WriteAsync(item).AsTask();
     }
