@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Where Are You?</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link href="https://atlas.microsoft.com/sdk/javascript/mapcontrol/3/atlas.min.css" rel="stylesheet" />
+    <script src="https://atlas.microsoft.com/sdk/javascript/mapcontrol/3/atlas.min.js"></script>
+
+    <script>
+        var map, datasource;
+
+        function getMap() {
+            map = new atlas.Map('myMap', {
+                center: [-79.3896317, 43.6425701],
+                zoom: 12,
+                view: 'Auto',
+                authOptions: {
+                    authType: 'subscriptionKey',
+                    subscriptionKey: '682K8pVQYRVGk3A1X7GeEEdVfHmkShlmPaio087rvymQzdaLxytrJQQJ99BKACYeBjFn70R6AAAgAZMP3inV'
+                }
+            });
+
+            map.events.add('ready', function () {
+                datasource = new atlas.source.DataSource();
+                map.sources.add(datasource);
+                // datasource.add(new atlas.data.Feature(new atlas.data.LineString([
+                //     [-79.3896317, 43.6425701],
+                //     [-79.381662, 43.64245],
+                //     [-79.3735, 43.64234],
+                //     [-79.3661, 43.64223],
+                //     [-79.3589, 43.64212],
+                //     [-79.3522, 43.64201],
+                //     [-79.3448, 43.6419],
+                //     [-79.3376, 43.64179],
+                //     [-79.3304, 43.64168],
+                //     [-79.3232, 43.64157],
+                //     [-79.316, 43.64146],
+                //     [-79.3088, 43.64135],
+                //     [-79.3016, 43.64124],
+                //     [-79.2944, 43.64113],
+                //     [-79.2872, 43.64102],
+                //     [-79.2800, 43.64091],
+                //     [-79.2728, 43.64080],
+                //     [-79.2656, 43.64069],
+                //     [-79.2584, 43.64058],
+                //     [-79.2512, 43.64047]
+                // ])));
+
+                const evtSource = new EventSource("https://acr.ngrok.app/drivers");
+                evtSource.onopen = (event) => {
+                    console.log("Connection to server opened.");
+                };
+                evtSource.onerror = (event) => {
+                    console.error(event);  
+                };
+                evtSource.onmessage = (event) => {
+                    console.log(event);
+                    try
+                    {
+                        const data = JSON.parse(event.data);
+                        console.log(`Received data: Latitude ${data.Latitude}, Longitude ${data.Longitude}`);
+
+                        datasource.add(new atlas.data.Feature(new atlas.data.LineString([
+                            [data.Longitude, data.Latitude]
+                        ])));
+                        map.setCamera({
+                            center: [data.Longitude, data.Latitude],
+                            zoom: 12,
+                            type: 'fly',
+                            duration: 1000
+                        });
+                    }
+                    catch (error)
+                    {
+                        console.error("Error parsing JSON data:", error);
+                    }
+                    
+                };
+
+                map.layers.add([
+                    new atlas.layer.LineLayer(datasource, null, {
+                        strokeColor: 'DarkOrchid',
+                        strokeWidth: 3
+                    }),
+
+                    new atlas.layer.SymbolLayer(datasource, null, {
+                        lineSpacing: 100,
+                        placement: 'line',
+                        iconOptions: {
+                            image: 'arrow-icon',
+                            allowOverlap: true,
+                            anchor: 'center',
+                            size: 0.8
+                        }
+                    })
+                ]);
+            });
+        }
+    </script>
+</head>
+<body onload="getMap()">
+    <div id="myMap" style="position:relative;width:100%;min-width:290px;height:600px;"></div>
+</body>
+</html>

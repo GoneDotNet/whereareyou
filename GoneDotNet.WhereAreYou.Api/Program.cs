@@ -2,10 +2,12 @@ using GoneDotNet.WhereAreYou.Api;
 using GoneDotNet.WhereAreYou.Grains.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Orleans.Streams;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults();
 builder.AddOrleansClient();
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 app.MapPost(
@@ -27,13 +29,25 @@ app.MapPost(
 
 app.MapGet(
     "/drivers",
-    ([FromServices] IClusterClient orleansClient) =>
+    async (
+        [FromServices] IClusterClient orleansClient,
+        HttpContext context
+    ) =>
     {
-        return StreamDriverUpdates(orleansClient);
+        context.Response.Headers["Content-Type"] = "text/event-stream";
+        context.Response.Headers["Cache-Control"] = "no-cache";
+        context.Response.Headers["Connection"] = "keep-alive";
+        
+        await foreach (var gpsPing in StreamDriverUpdates(orleansClient))
+        {
+            var json = JsonSerializer.Serialize(gpsPing);
+            await context.Response.WriteAsync($"data: {json}\n\n");
+            await context.Response.Body.FlushAsync();
+        }
     }
 );
 
-
+app.UseStaticFiles();
 app.Run();
 
 async IAsyncEnumerable<GpsPing> StreamDriverUpdates(IClusterClient client)
