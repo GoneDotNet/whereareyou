@@ -22,6 +22,8 @@ app.MapPost(
         {
             Latitude = gpsPing.Latitude,
             Longitude = gpsPing.Longitude,
+            Heading = gpsPing.Heading,
+            Speed = gpsPing.Speed,
             Timestamp = gpsPing.Timestamp
         });
     }

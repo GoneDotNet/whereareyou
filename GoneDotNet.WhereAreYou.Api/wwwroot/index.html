@@ -17,7 +17,7 @@
                 view: 'Auto',
                 authOptions: {
                     authType: 'subscriptionKey',
-                    subscriptionKey: '682K8pVQYRVGk3A1X7GeEEdVfHmkShlmPaio087rvymQzdaLxytrJQQJ99BKACYeBjFn70R6AAAgAZMP3inV'
+                    subscriptionKey: ''
                 }
             });
 
@@ -61,8 +61,6 @@
                     try
                     {
                         const data = JSON.parse(event.data);
-                        // console.log(`Received data: Latitude ${data.Latitude}, Longitude ${data.Longitude}`);
-                        //
                         // datasource.add(new atlas.data.Feature(new atlas.data.LineString([
                         //     [data.Longitude, data.Latitude]
                         // ])));
@@ -73,11 +71,48 @@
                         //     duration: 1000
                         // });
 
-                        map.markers.add(new atlas.HtmlMarker({
-                            color: 'DodgerBlue',
-                            text: data.DriverName,
-                            position: [data.Longitude, data.Latitude]
-                        }));
+                        // Create a custom HTML marker with directional arrow
+                        var markerHtml = document.createElement('div');
+                        markerHtml.innerHTML = `
+                            <div style="text-align: center; transform: rotate(${data.Heading}deg); transform-origin: center;">
+                                <div style="width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 20px solid DodgerBlue; margin: 0 auto;"></div>
+                            </div>
+                        `;
+                        var marker = new atlas.HtmlMarker({
+                            htmlContent: markerHtml.outerHTML,
+                            position: [data.Longitude, data.Latitude],
+                            anchor: 'center'
+                        });
+                        
+                        // Create popup with driver information
+                        var timestamp = new Date(data.Timestamp);
+                        var formattedTime = timestamp.toLocaleString('en-US', {
+                            month: 'short',
+                            day: 'numeric',
+                            year: 'numeric',
+                            hour: 'numeric',
+                            minute: '2-digit',
+                            second: '2-digit'
+                        });
+                        
+                        var popup = new atlas.Popup({
+                            content: `
+                                <div style="padding: 10px;">
+                                    <strong>${data.DriverName}</strong><br/>
+                                    <span style="font-size: 12px; color: #666;">Time: ${formattedTime}</span><br/>
+                                    <span style="font-size: 12px; color: #666;">Speed: ${data.Speed ? data.Speed.toFixed(1) : 0} km</span>
+                                </div>
+                            `,
+                            position: [data.Longitude, data.Latitude],
+                            pixelOffset: [0, -30]
+                        });
+                        
+                        // Add click event to marker to show popup
+                        map.events.add('click', marker, function() {
+                            popup.open(map);
+                        });
+                        
+                        map.markers.add(marker);
                     }
                     catch (error)
                     {
