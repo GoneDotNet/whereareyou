@@ -65,7 +65,14 @@ async IAsyncEnumerable<GpsPing> StreamDriverUpdates(IClusterClient client)
     {
         await foreach (var ping in channel.Reader.ReadAllAsync())
         {
-            yield return new GpsPing(ping.DriverName!, ping.Latitude, ping.Longitude, ping.Timestamp);
+            yield return new GpsPing(
+                ping.DriverName!, 
+                ping.Latitude, 
+                ping.Longitude,
+                ping.Heading,
+                ping.Speed,
+                ping.Timestamp
+            );
         }
     }
     finally

@@ -22,8 +22,10 @@
             });
 
             map.events.add('ready', function () {
-                datasource = new atlas.source.DataSource();
-                map.sources.add(datasource);
+                // datasource = new atlas.source.DataSource();
+                // map.sources.add(datasource);
+                
+                
                 // datasource.add(new atlas.data.Feature(new atlas.data.LineString([
                 //     [-79.3896317, 43.6425701],
                 //     [-79.381662, 43.64245],
@@ -59,17 +61,23 @@
                     try
                     {
                         const data = JSON.parse(event.data);
-                        console.log(`Received data: Latitude ${data.Latitude}, Longitude ${data.Longitude}`);
+                        // console.log(`Received data: Latitude ${data.Latitude}, Longitude ${data.Longitude}`);
+                        //
+                        // datasource.add(new atlas.data.Feature(new atlas.data.LineString([
+                        //     [data.Longitude, data.Latitude]
+                        // ])));
+                        // map.setCamera({
+                        //     center: [data.Longitude, data.Latitude],
+                        //     zoom: 12,
+                        //     type: 'fly',
+                        //     duration: 1000
+                        // });
 
-                        datasource.add(new atlas.data.Feature(new atlas.data.LineString([
-                            [data.Longitude, data.Latitude]
-                        ])));
-                        map.setCamera({
-                            center: [data.Longitude, data.Latitude],
-                            zoom: 12,
-                            type: 'fly',
-                            duration: 1000
-                        });
+                        map.markers.add(new atlas.HtmlMarker({
+                            color: 'DodgerBlue',
+                            text: data.DriverName,
+                            position: [data.Longitude, data.Latitude]
+                        }));
                     }
                     catch (error)
                     {

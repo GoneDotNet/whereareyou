@@ -30,4 +30,10 @@ public class Location
     
     [Id(3)]
     public string? DriverName { get; set; }
+    
+    [Id(4)]
+    public double Speed { get; set; }
+    
+    [Id(5)]
+    public double Heading { get; set; }
 }

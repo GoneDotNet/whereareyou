@@ -7,8 +7,10 @@ Content-Type: application/json
 
 {
   "driverName": "Allan Test",
-  "latitude": 90,
-  "longitude": -80,
+  "latitude": 43.8530286,
+  "longitude": -78.9401376,
+  "heading": 180,
+  "speed": 65,
   "timestamp": "2025-11-08T12:00:00Z"
 }
 

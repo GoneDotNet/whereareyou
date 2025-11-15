@@ -19,12 +19,15 @@ public partial class MyGpsDelegate : GpsDelegate
 
     protected override async Task OnGpsReading(GpsReading reading)
     {
+        
         await this.httpClient.PostAsJsonAsync(
             $"{Constants.ApiBaseUrl}gps",
             new GpsPing(
                 this.DriverName,
                 reading.Position.Latitude, 
                 reading.Position.Longitude,
+                reading.Heading,
+                reading.Speed,
                 reading.Timestamp
             )
         );
@@ -36,6 +39,8 @@ public record GpsPing(
     string DriverName,
     double Latitude,
     double Longitude,
+    double Heading,
+    double Speed,
     DateTimeOffset Timestamp
 );
 
