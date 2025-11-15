@@ -2,14 +2,11 @@
 
 This repository shows how to build a GPS tracker application using .NET Aspire, Orleans, and MAUI. The application allows users to track their location in real-time and visualize it on a map.
 
-## TODO
-- [ ] Implement real-time location tracking using Orleans grains.
-- [ ] Create a MAUI front-end to display the map and user location.
-- [ ] Database Migration Service
-- [ ] Entity Framework Core library
-- [ ] Blazor App or Power Platform Integration showing ALL vehicles on a map in real-time.
-- [ ] Service Defaults provide more defaults ;)
+> [!NOTE]
+> In order to see the map at index.html, you will need to add your own subscription key from Azure Maps.
 
-## Stretch Goals
-- [ ] CI/CD
-- [ ] Unit and Integration Tests
+Application Parts
+* Aspire App Host to configure Orleans and ASP.NET API
+* ASP.NET to receive and stream GPS data
+* Orleans Grains to manage GPS data and user sessions
+* MAUI App to provide real time tracking application

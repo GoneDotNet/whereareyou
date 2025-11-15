@@ -51,7 +51,7 @@ var webapi = builder
     .WithReference(orleans.AsClient())
     .WaitFor(silo);
 
-if (builder.Environment.IsDevelopment())
+if (!builder.ExecutionContext.IsPublishMode && !String.IsNullOrWhiteSpace(builder.Configuration["NGrok:AuthToken"]))
 {
     builder
         .AddNgrok("ngrok")
