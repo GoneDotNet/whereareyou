@@ -1,7 +1,4 @@
-﻿using CommunityToolkit.Maui;
-using Shiny.Extensions.Stores;
-
-namespace GoneDotNet.WhereAreYou.Maui;
+﻿namespace GoneDotNet.WhereAreYou.Maui;
 
 
 public static class MauiProgram

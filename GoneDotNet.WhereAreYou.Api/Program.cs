@@ -2,7 +2,6 @@ using GoneDotNet.WhereAreYou.Api;
 using GoneDotNet.WhereAreYou.Grains.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Orleans.Streams;
-using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults();
@@ -31,21 +30,32 @@ app.MapPost(
 
 app.MapGet(
     "/drivers",
+    // the .net 10 way
+    ([FromServices] IClusterClient orleansClient) => TypedResults.ServerSentEvents(StreamDriverUpdates(orleansClient))
+        
+    // pre-net10
+    // context.Response.Headers["Content-Type"] = "text/event-stream";
+    // context.Response.Headers["Cache-Control"] = "no-cache";
+    // context.Response.Headers["Connection"] = "keep-alive";
+    //
+    // await foreach (var gpsPing in StreamDriverUpdates(orleansClient))
+    // {
+    //     var json = JsonSerializer.Serialize(gpsPing);
+    //     await context.Response.WriteAsync($"data: {json}\n\n");
+    //     await context.Response.Body.FlushAsync();
+    // }
+);
+
+app.MapGet(
+    "companies/{companyId}",
     async (
-        [FromServices] IClusterClient orleansClient,
-        HttpContext context
+        [FromRoute] string companyId,
+        [FromServices] IClusterClient orleansClient
     ) =>
     {
-        context.Response.Headers["Content-Type"] = "text/event-stream";
-        context.Response.Headers["Cache-Control"] = "no-cache";
-        context.Response.Headers["Connection"] = "keep-alive";
-        
-        await foreach (var gpsPing in StreamDriverUpdates(orleansClient))
-        {
-            var json = JsonSerializer.Serialize(gpsPing);
-            await context.Response.WriteAsync($"data: {json}\n\n");
-            await context.Response.Body.FlushAsync();
-        }
+        var companyGrain = orleansClient.GetGrain<ICompanyGrain>(companyId);
+        var result = await companyGrain.GetAllDriverStates();
+        return Results.Ok(result);
     }
 );
 

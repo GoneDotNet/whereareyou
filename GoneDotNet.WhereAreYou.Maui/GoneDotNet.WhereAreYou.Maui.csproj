@@ -69,9 +69,7 @@
 
     <ItemGroup>
         <PackageReference Include="Shiny.Hosting.Maui"/>
-        <PackageReference Include="Shiny.Reflector"/>
         <PackageReference Include="Shiny.Extensions.DependencyInjection"/>
-        <PackageReference Include="Shiny.Extensions.Stores"/>
 
         <PackageReference Include="Microsoft.Maui.Controls"/>
         <PackageReference Include="Microsoft.Maui.Controls.Maps"/>

@@ -12,11 +12,14 @@ public class DriverGrain(
 {
     private IAsyncStream<Location>? stream;
 
-    public override Task OnActivateAsync(CancellationToken cancellationToken)
+    public override async Task OnActivateAsync(CancellationToken cancellationToken)
     {
+        var companyGrain = this.GrainFactory.GetGrain<ICompanyGrain>("gonedotnet");
+        await companyGrain.Join(this.GetPrimaryKeyString());
+        
         var streamProvider = this.GetStreamProvider("StreamProvider");
         stream = streamProvider.GetStream<Location>(StreamId.Create("drivers", "all"));
-        return base.OnActivateAsync(cancellationToken);
+        await base.OnActivateAsync(cancellationToken);
     }
 
     
