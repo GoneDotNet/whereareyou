@@ -6,7 +6,6 @@ using Orleans.Streams;
 var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults();
 builder.AddOrleansClient();
-builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 app.MapPost(
@@ -54,7 +53,18 @@ app.MapGet(
     ) =>
     {
         var companyGrain = orleansClient.GetGrain<ICompanyGrain>(companyId);
-        var result = await companyGrain.GetAllDriverStates();
+        var states = await companyGrain.GetLastDriverLocations();
+        var result = states
+            .Select(x => new GpsPing(
+                x.DriverName!,
+                x.Latitude,
+                x.Longitude,
+                x.Heading,
+                x.Speed,
+                x.Timestamp
+            ))
+            .ToList();
+        
         return Results.Ok(result);
     }
 );

@@ -8,16 +8,20 @@ public class CompanyGrain(
     IPersistentState<CompanyState> state
 ) : Grain, ICompanyGrain
 {
-    public async Task<List<DriverState>> GetAllDriverStates()
+    public async Task<List<Location>> GetLastDriverLocations()
     {
-        var states = new List<DriverState>();
+        var states = new List<Location>();
         foreach (var driverId in state.State.Drivers)
         {
             var driverGrain = this.GrainFactory.GetGrain<IDriverGrain>(driverId);
             var driverState = await driverGrain.GetState();
-            states.Add(driverState);
+            if (driverState.LastKnownLocation != null)
+            {
+                var loc = driverState.LastKnownLocation;
+                loc.DriverName = driverId;
+                states.Add(loc);
+            }
         }
-
         return states;
     }
 

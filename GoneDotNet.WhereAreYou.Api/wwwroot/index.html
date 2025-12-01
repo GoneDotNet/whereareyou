@@ -22,103 +22,39 @@
             });
 
             map.events.add('ready', function () {
-                // datasource = new atlas.source.DataSource();
-                // map.sources.add(datasource);
-                
-                
-                // datasource.add(new atlas.data.Feature(new atlas.data.LineString([
-                //     [-79.3896317, 43.6425701],
-                //     [-79.381662, 43.64245],
-                //     [-79.3735, 43.64234],
-                //     [-79.3661, 43.64223],
-                //     [-79.3589, 43.64212],
-                //     [-79.3522, 43.64201],
-                //     [-79.3448, 43.6419],
-                //     [-79.3376, 43.64179],
-                //     [-79.3304, 43.64168],
-                //     [-79.3232, 43.64157],
-                //     [-79.316, 43.64146],
-                //     [-79.3088, 43.64135],
-                //     [-79.3016, 43.64124],
-                //     [-79.2944, 43.64113],
-                //     [-79.2872, 43.64102],
-                //     [-79.2800, 43.64091],
-                //     [-79.2728, 43.64080],
-                //     [-79.2656, 43.64069],
-                //     [-79.2584, 43.64058],
-                //     [-79.2512, 43.64047]
-                // ])));
+                //     window.setInterval(function () {
+                //         fetch("https://acr.ngrok.app/companies/gonedotnet")
+                //             .then(response => response.json())
+                //             .then(data => {
+                //                 try
+                //                 {
+                //                     map.markers.clear();
+                //                     for (var i = 0; i < data.length; i++)
+                //                         addMarker(map, data[i]);
+                //                 }
+                //                 catch (error)
+                //                 {
+                //                     console.error("Error logging data:", error);
+                //                 }
+                //             })
+                //             .catch(error => console.error('Error fetching company data:', error));
+                //     }, 3000);
 
                 const evtSource = new EventSource("https://acr.ngrok.app/drivers");
                 evtSource.onopen = (event) => {
                     console.log("Connection to server opened.");
                 };
                 evtSource.onerror = (event) => {
-                    console.error(event);  
+                    console.error(event);
                 };
                 evtSource.onmessage = (event) => {
                     console.log(event);
-                    try
-                    {
+                    try {
                         const data = JSON.parse(event.data);
-                        // datasource.add(new atlas.data.Feature(new atlas.data.LineString([
-                        //     [data.Longitude, data.Latitude]
-                        // ])));
-                        // map.setCamera({
-                        //     center: [data.Longitude, data.Latitude],
-                        //     zoom: 12,
-                        //     type: 'fly',
-                        //     duration: 1000
-                        // });
-
-                        // Create a custom HTML marker with directional arrow
-                        var markerHtml = document.createElement('div');
-                        markerHtml.innerHTML = `
-                            <div style="text-align: center; transform: rotate(${data.Heading}deg); transform-origin: center;">
-                                <div style="width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 20px solid DodgerBlue; margin: 0 auto;"></div>
-                            </div>
-                        `;
-                        var marker = new atlas.HtmlMarker({
-                            htmlContent: markerHtml.outerHTML,
-                            position: [data.Longitude, data.Latitude],
-                            anchor: 'center'
-                        });
-                        
-                        // Create popup with driver information
-                        var timestamp = new Date(data.Timestamp);
-                        var formattedTime = timestamp.toLocaleString('en-US', {
-                            month: 'short',
-                            day: 'numeric',
-                            year: 'numeric',
-                            hour: 'numeric',
-                            minute: '2-digit',
-                            second: '2-digit'
-                        });
-                        
-                        var popup = new atlas.Popup({
-                            content: `
-                                <div style="padding: 10px;">
-                                    <strong>${data.DriverName}</strong><br/>
-                                    <span style="font-size: 12px; color: #666;">Time: ${formattedTime}</span><br/>
-                                    <span style="font-size: 12px; color: #666;">Speed: ${data.Speed ? data.Speed.toFixed(1) : 0} km</span>
-                                </div>
-                            `,
-                            position: [data.Longitude, data.Latitude],
-                            pixelOffset: [0, -30]
-                        });
-                        
-                        // Add click event to marker to show popup
-                        map.events.add('click', marker, function() {
-                            popup.open(map);
-                        });
-                        
-                        map.markers.add(marker);
-                    }
-                    catch (error)
-                    {
+                        addMarker(map, data);
+                    } catch (error) {
                         console.error("Error parsing JSON data:", error);
                     }
-                    
                 };
 
                 map.layers.add([
@@ -139,6 +75,61 @@
                     })
                 ]);
             });
+        }
+        
+        function addMarker(map, data) {
+            // datasource.add(new atlas.data.Feature(new atlas.data.LineString([
+            //     [data.Longitude, data.Latitude]
+            // ])));
+            // map.setCamera({
+            //     center: [data.Longitude, data.Latitude],
+            //     zoom: 12,
+            //     type: 'fly',
+            //     duration: 1000
+            // });
+
+            // Create a custom HTML marker with directional arrow
+            var markerHtml = document.createElement('div');
+            markerHtml.innerHTML = `
+                            <div style="text-align: center; transform: rotate(${data.heading}deg); transform-origin: center;">
+                                <div style="width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 20px solid DodgerBlue; margin: 0 auto;"></div>
+                            </div>
+                        `;
+            var marker = new atlas.HtmlMarker({
+                htmlContent: markerHtml.outerHTML,
+                position: [data.longitude, data.latitude],
+                anchor: 'center'
+            });
+
+            // Create popup with driver information
+            var timestamp = new Date(data.timestamp);
+            var formattedTime = timestamp.toLocaleString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric',
+                hour: 'numeric',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+
+            var popup = new atlas.Popup({
+                content: `
+                                <div style="padding: 10px;">
+                                    <strong>${data.driverName}</strong><br/>
+                                    <span style="font-size: 12px; color: #666;">Time: ${formattedTime}</span><br/>
+                                    <span style="font-size: 12px; color: #666;">Speed: ${data.speed ? data.speed.toFixed(1) : 0} km</span>
+                                </div>
+                            `,
+                position: [data.longitude, data.latitude],
+                pixelOffset: [0, -30]
+            });
+
+            // Add click event to marker to show popup
+            map.events.add('click', marker, function() {
+                popup.open(map);
+            });
+
+            map.markers.add(marker);
         }
     </script>
 </head>
