@@ -23,6 +23,11 @@
         <PackageVersion Include="CommunityToolkit.Aspire.Hosting.Ngrok" Version="13.0.0"/>
     </ItemGroup>
     <ItemGroup>
+        <PackageVersion Include="Scalar.AspNetCore" Version="2.11.0"/>
+        <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="10.0.0"/>
+        <PackageVersion Include="Microsoft.Extensions.ApiDescription.Server" Version="10.0.0"/>
+    </ItemGroup>
+    <ItemGroup>
         <PackageVersion Include="OrleansDashboard" Version="8.2.0"/>
         <PackageVersion Include="Microsoft.Orleans.Server" Version="$(OrleansVersion)"/>
         <PackageVersion Include="Microsoft.Orleans.Sdk" Version="$(OrleansVersion)"/>
@@ -37,18 +42,18 @@
     </ItemGroup>
     <ItemGroup>
         <PackageVersion Include="Microsoft.Extensions.Hosting" Version="$(MsftExtVersion)"/>
-        <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0"/>
         <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="$(MsftExtVersion)"/>
         <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="$(MsftExtVersion)"/>
+        <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0"/>
     </ItemGroup>
     <ItemGroup>
-        <PackageVersion Include="Shiny.Hosting.Maui" Version="$(ShinyVersion)"/>
-        <PackageVersion Include="Shiny.Extensions.DependencyInjection" Version="1.3.1"/>
         <PackageVersion Include="Microsoft.Maui.Controls" Version="$(MauiVersion)"/>
         <PackageVersion Include="Microsoft.Maui.Controls.Maps" Version="$(MauiVersion)"/>
         <PackageVersion Include="Microsoft.Extensions.Logging.Debug" Version="$(MsftExtVersion)"/>
         <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.0"/>
         <PackageVersion Include="CommunityToolkit.Maui" Version="13.0.0"/>
+        <PackageVersion Include="Shiny.Hosting.Maui" Version="$(ShinyVersion)"/>
+        <PackageVersion Include="Shiny.Extensions.DependencyInjection" Version="1.3.1"/>
         <PackageVersion Include="Shiny.Maui.Shell" Version="1.1.1"/>
         <PackageVersion Include="Shiny.Locations" Version="$(ShinyVersion)"/>
         <PackageVersion Include="Shiny.Notifications" Version="$(ShinyVersion)"/>

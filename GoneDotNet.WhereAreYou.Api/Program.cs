@@ -2,12 +2,20 @@ using GoneDotNet.WhereAreYou.Api;
 using GoneDotNet.WhereAreYou.Grains.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Orleans.Streams;
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults();
 builder.AddOrleansClient();
+builder.Services.AddOpenApi();
 
 var app = builder.Build();
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
+    app.MapScalarApiReference();
+}
+
 app.MapPost(
     "/gps",
     async (

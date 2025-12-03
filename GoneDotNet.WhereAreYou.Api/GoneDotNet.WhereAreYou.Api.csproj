@@ -7,8 +7,20 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\GoneDotNet.WhereAreYou.Grains.Impl\GoneDotNet.WhereAreYou.Grains.Impl.csproj" />
+        <ProjectReference Include="..\GoneDotNet.WhereAreYou.Grains.Impl\GoneDotNet.WhereAreYou.Grains.Impl.csproj"/>
         <ProjectReference Include="..\GoneDotNet.WhereAreYou.ServiceDefaults\GoneDotNet.WhereAreYou.ServiceDefaults.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Scalar.AspNetCore"/>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi"/>
+        <!--
+        causes issues for orleans startup
+        <PackageReference Include="Microsoft.Extensions.ApiDescription.Server">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        -->
     </ItemGroup>
 
 </Project>
