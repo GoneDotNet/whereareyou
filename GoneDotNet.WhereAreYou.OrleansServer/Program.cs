@@ -6,6 +6,7 @@ var builder = Host.CreateApplicationBuilder(args);
 
 builder.AddServiceDefaults();
 builder.AddOrleansRequirements();
+builder.AddAppDbContext(true);
 
 builder.UseOrleans(silo =>
 {

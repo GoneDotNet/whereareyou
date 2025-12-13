@@ -57,7 +57,7 @@ public static class Extensions
     }
 
     
-    public static TBuilder AddAppDbContext<TBuilder>(this TBuilder builder) where TBuilder : IHostApplicationBuilder
+    public static TBuilder AddAppDbContext<TBuilder>(this TBuilder builder, bool registerAsDbFactory = false) where TBuilder : IHostApplicationBuilder
     {
         var configure = (DbContextOptionsBuilder opts) =>
         {
@@ -66,8 +66,10 @@ public static class Extensions
                 x => x.MigrationsAssembly("GoneDotNet.WhereAreYou.DbMigrations")
             );
         };
-        builder.Services.AddDbContextFactory<AppDbContext>(configure);
-        builder.Services.AddDbContext<AppDbContext>(configure);
+        if (registerAsDbFactory)
+            builder.Services.AddDbContextFactory<AppDbContext>(configure);
+        else
+            builder.Services.AddDbContext<AppDbContext>(configure);
         
         return builder;
     }
