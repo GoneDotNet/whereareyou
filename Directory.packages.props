@@ -43,7 +43,7 @@
     <ItemGroup>
         <PackageVersion Include="Microsoft.Extensions.Hosting" Version="$(MsftExtVersion)"/>
         <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$(MsftExtVersion)"/>
-        <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="$(MsftExtVersion)"/>
+        <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="$(MsftExtVersion)"/>
         <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="$(MsftExtVersion)"/>
         <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0"/>
     </ItemGroup>
