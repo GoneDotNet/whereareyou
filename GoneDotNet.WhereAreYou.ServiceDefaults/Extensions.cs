@@ -1,5 +1,8 @@
+using GoneDotNet.WhereAreYou.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Logging;
@@ -52,7 +55,22 @@ public static class Extensions
         builder.AddKeyedAzureBlobClient("pubsub-storage");
         return builder;
     }
+
     
+    public static TBuilder AddAppDbContext<TBuilder>(this TBuilder builder) where TBuilder : IHostApplicationBuilder
+    {
+        var configure = (DbContextOptionsBuilder opts) =>
+        {
+            opts.UseNpgsql(
+                builder.Configuration.GetConnectionString("gonedotnetdb"), 
+                x => x.MigrationsAssembly("GoneDotNet.WhereAreYou.DbMigrations")
+            );
+        };
+        builder.Services.AddDbContextFactory<AppDbContext>(configure);
+        builder.Services.AddDbContext<AppDbContext>(configure);
+        
+        return builder;
+    }
 
     public static TBuilder AddOrleansClient<TBuilder>(this TBuilder builder) where TBuilder : IHostApplicationBuilder
     {

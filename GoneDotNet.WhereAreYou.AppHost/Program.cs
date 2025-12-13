@@ -31,6 +31,10 @@ var orleans = builder
     .WithGrainStorage("PubSubStore", pubSubStore)
     .WithGrainStorage("Default", grainStore);
 
+var dbmigrations = builder.AddProject<GoneDotNet_WhereAreYou_DbMigrations>("dbmigrations")
+    .WithReference(database)
+    .WaitFor(database);
+
 var silo = builder.AddProject<GoneDotNet_WhereAreYou_OrleansServer>("silo")
     .WithReference(orleans)
     .WithReference(clustering)
@@ -42,7 +46,9 @@ var silo = builder.AddProject<GoneDotNet_WhereAreYou_OrleansServer>("silo")
     .WithReference(grainStore)
     .WaitFor(grainStore)
     .WithReference(pubSubStore)
-    .WaitFor(pubSubStore);
+    .WaitFor(pubSubStore)
+    .WithReference(database)
+    .WaitFor(dbmigrations);
 
 var webapi = builder
     .AddProject<GoneDotNet_WhereAreYou_Api>("webapi")

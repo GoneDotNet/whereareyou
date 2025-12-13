@@ -6,11 +6,13 @@
     <File Path="GoneDotNet.WhereAreYou.AppHost\appsettings.json" />
     <File Path="api.http" />
   </Folder>
-  <Project Path="GoneDotNet.WhereAreYou.Api\GoneDotNet.WhereAreYou.Api.csproj" Type="Classic C#" />
-  <Project Path="GoneDotNet.WhereAreYou.AppHost\GoneDotNet.WhereAreYou.AppHost.csproj" Type="Classic C#" />
-  <Project Path="GoneDotNet.WhereAreYou.Grains.Impl\GoneDotNet.WhereAreYou.Grains.Impl.csproj" Type="Classic C#" />
-  <Project Path="GoneDotNet.WhereAreYou.Grains.Interfaces\GoneDotNet.WhereAreYou.Grains.Interfaces.csproj" Type="Classic C#" />
-  <Project Path="GoneDotNet.WhereAreYou.Maui\GoneDotNet.WhereAreYou.Maui.csproj" Type="Classic C#" />
-  <Project Path="GoneDotNet.WhereAreYou.OrleansServer\GoneDotNet.WhereAreYou.OrleansServer.csproj" Type="Classic C#" />
-  <Project Path="GoneDotNet.WhereAreYou.ServiceDefaults\GoneDotNet.WhereAreYou.ServiceDefaults.csproj" Type="Classic C#" />
+  <Project Path="GoneDotNet.WhereAreYou.Api\GoneDotNet.WhereAreYou.Api.csproj" />
+  <Project Path="GoneDotNet.WhereAreYou.AppHost\GoneDotNet.WhereAreYou.AppHost.csproj" />
+  <Project Path="GoneDotNet.WhereAreYou.Data/GoneDotNet.WhereAreYou.Data.csproj" />
+  <Project Path="GoneDotNet.WhereAreYou.DbMigrations/GoneDotNet.WhereAreYou.DbMigrations.csproj" />
+  <Project Path="GoneDotNet.WhereAreYou.Grains.Impl\GoneDotNet.WhereAreYou.Grains.Impl.csproj" />
+  <Project Path="GoneDotNet.WhereAreYou.Grains.Interfaces\GoneDotNet.WhereAreYou.Grains.Interfaces.csproj" />
+  <Project Path="GoneDotNet.WhereAreYou.Maui\GoneDotNet.WhereAreYou.Maui.csproj" />
+  <Project Path="GoneDotNet.WhereAreYou.OrleansServer\GoneDotNet.WhereAreYou.OrleansServer.csproj" />
+  <Project Path="GoneDotNet.WhereAreYou.ServiceDefaults\GoneDotNet.WhereAreYou.ServiceDefaults.csproj" />
 </Solution>

@@ -22,6 +22,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\GoneDotNet.WhereAreYou.Api\GoneDotNet.WhereAreYou.Api.csproj"/>
+        <ProjectReference Include="..\GoneDotNet.WhereAreYou.DbMigrations\GoneDotNet.WhereAreYou.DbMigrations.csproj" />
         <ProjectReference Include="..\GoneDotNet.WhereAreYou.OrleansServer\GoneDotNet.WhereAreYou.OrleansServer.csproj" />
     </ItemGroup>
 

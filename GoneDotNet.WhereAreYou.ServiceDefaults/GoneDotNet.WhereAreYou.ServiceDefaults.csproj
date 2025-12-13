@@ -26,4 +26,8 @@
         <PackageReference Include="Microsoft.Orleans.Reminders.AzureStorage"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\GoneDotNet.WhereAreYou.Data\GoneDotNet.WhereAreYou.Data.csproj" />
+    </ItemGroup>
+
 </Project>
