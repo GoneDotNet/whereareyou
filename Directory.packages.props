@@ -1,9 +1,9 @@
 <Project>
     <PropertyGroup>
         <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-        <AspireVersion>13.0.1</AspireVersion>
+        <AspireVersion>13.0.2</AspireVersion>
         <OrleansVersion>9.2.1</OrleansVersion>
-        <MsftExtVersion>10.0.0</MsftExtVersion>
+        <MsftExtVersion>10.0.1</MsftExtVersion>
         <ShinyVersion>4.0.0-beta-0095</ShinyVersion>
     </PropertyGroup>
     <ItemGroup>
@@ -14,9 +14,7 @@
         <PackageVersion Include="Aspire.Hosting.Orleans" Version="$(AspireVersion)"/>
         <PackageVersion Include="Aspire.Hosting.AppHost" Version="$(AspireVersion)"/>
         <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="$(AspireVersion)"/>
-        <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="10.0.1"/>
-        <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.1"/>
-        <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="10.0.0"/>
+        <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="10.1.0"/>
         <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.14.0"/>
         <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.14.0"/>
         <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.14.0"/>
@@ -25,8 +23,8 @@
         <PackageVersion Include="CommunityToolkit.Aspire.Hosting.Ngrok" Version="13.0.0"/>
     </ItemGroup>
     <ItemGroup>
-        <PackageVersion Include="Scalar.AspNetCore" Version="2.11.0"/>
-        <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="10.0.0"/>
+        <PackageVersion Include="Scalar.AspNetCore" Version="2.11.6"/>
+        <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="$(MsftExtVersion)"/>
         <PackageVersion Include="Microsoft.Extensions.ApiDescription.Server" Version="10.0.0"/>
     </ItemGroup>
     <ItemGroup>
@@ -44,8 +42,9 @@
     </ItemGroup>
     <ItemGroup>
         <PackageVersion Include="Microsoft.Extensions.Hosting" Version="$(MsftExtVersion)"/>
+        <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$(MsftExtVersion)"/>
+        <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="$(MsftExtVersion)"/>
         <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="$(MsftExtVersion)"/>
-        <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="$(MsftExtVersion)"/>
         <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0"/>
     </ItemGroup>
     <ItemGroup>
