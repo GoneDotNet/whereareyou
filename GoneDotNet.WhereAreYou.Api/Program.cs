@@ -1,12 +1,15 @@
 using GoneDotNet.WhereAreYou.Api;
+using GoneDotNet.WhereAreYou.Data;
 using GoneDotNet.WhereAreYou.Grains.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Orleans.Streams;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults();
 builder.AddOrleansClient();
+builder.AddAppDbContext();
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
@@ -16,6 +19,17 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference();
 }
 
+app.MapGet(
+    "/drivers/{userIdentifier}/coordinates",
+    (
+        string userIdentifier,
+        [FromServices] AppDbContext data
+    ) => data.UserCheckins
+            .Where(x => x.UserIdentifier == userIdentifier)
+            .OrderByDescending(x => x.Timestamp)
+            .Take(50)
+            .ToListAsync()
+);
 app.MapPost(
     "/gps",
     async (

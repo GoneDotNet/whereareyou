@@ -10,7 +10,7 @@ builder.AddAppDbContext(true);
 
 builder.UseOrleans(silo =>
 {
-    silo.UseDashboard(x => x.Port = 1911);
+    //silo.UseDashboard(x => x.Port = 1911);
     silo.AddAzureQueueStreams("AzureQueueProvider", (SiloAzureQueueStreamConfigurator configurator) =>
     {
         configurator.ConfigureAzureQueue(options =>

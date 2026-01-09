@@ -8,6 +8,7 @@ const string Volume = "gonedotnet-data-volume";
 var dbPassword = builder.AddParameter("DatabasePassword", secret: true);
 var postgres = builder
     .AddPostgres("gonedotnet")
+    .WithPgAdmin()
     .WithPassword(dbPassword)
     .WithDataVolume(Volume)
     .WithLifetime(ContainerLifetime.Persistent);

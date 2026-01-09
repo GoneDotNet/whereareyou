@@ -1,5 +1,6 @@
-﻿using GoneDotNet.WhereAreYou.Grains.Interfaces;
-using Orleans.Runtime;
+﻿using GoneDotNet.WhereAreYou.Data;
+using GoneDotNet.WhereAreYou.Grains.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Orleans.Streams;
 
 namespace GoneDotNet.WhereAreYou.Grains.Impl;
@@ -7,7 +8,8 @@ namespace GoneDotNet.WhereAreYou.Grains.Impl;
 
 public class DriverGrain(
     [PersistentState("driver")] 
-    IPersistentState<DriverState> state
+    IPersistentState<DriverState> state,
+    IDbContextFactory<AppDbContext> dbContextFactory
 ) : Grain, IDriverGrain
 {
     private IAsyncStream<Location>? stream;
@@ -27,6 +29,19 @@ public class DriverGrain(
     {
         state.State.LastKnownLocation = location;
         await state.WriteStateAsync();
+
+        await using var db = await dbContextFactory.CreateDbContextAsync();
+        db.UserCheckins.Add(new UserCheckin
+        {
+            Id = Guid.NewGuid(),
+            Heading = location.Heading,
+            Latitude = location.Latitude,
+            Longitude = location.Longitude,
+            Speed = location.Speed,
+            Timestamp = location.Timestamp,
+            UserIdentifier = this.GetPrimaryKeyString()
+        });
+        await db.SaveChangesAsync();
         
         if (stream != null)
         {

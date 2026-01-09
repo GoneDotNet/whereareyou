@@ -23,3 +23,8 @@ Content-Type: application/json
 GET {{baseUri}}/company/gonedotnet
 Accept: application/json
 Content-Type: application/json
+
+### Driver Read Location
+GET {{baseUri}}/drivers/Allan%20Test/coordinates
+Accept: application/json
+Content-Type: application/json
